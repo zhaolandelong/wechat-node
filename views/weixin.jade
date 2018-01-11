@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    h1 微信接入项目名及token值
+    ol
+        each item in weChatList
+            li 
+                p project : #{item.project}
+                p token : #{item.token}
+                p appID : #{item.appID}
+                p appSecret : #{item.appSecret}
