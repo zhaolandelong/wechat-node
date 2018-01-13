@@ -15,33 +15,10 @@ module.exports = class WeChatService extends Service {
         */
         let sha = sha1([token, timestamp, nonce].sort().join(''));
         if (sha === signature) {
+            console.log('sign wechat successfully')
             return echostr;
         } else {
             return 'err';
-        }
-    }
-
-    async getToken() {
-        let { redis } = this.app;
-        let token = await this.app.redis.get('wechat_token');
-        if (!token) {
-            let { appid, secret, prefix } = this.config.wechat;
-            let { data } = await this.ctx.curl(`${prefix}/token`, {
-                data: {
-                    grant_type: 'client_credential',
-                    appid,
-                    secret,
-                },
-                dataType: 'json',
-            });
-            if (!data.errcode) {
-                //应该用定时任务，暂时先用过期时间开发
-                token = data.access_token;
-                await this.app.redis.set('wechat_token', token, 'EX', 7000);
-            } else {
-                //没获取到
-            }
-            return token;
         }
     }
 }
