@@ -13,7 +13,8 @@ module.exports = app => {
                 dataType: 'json',
             });
             if (!data.errcode) {
-                await app.redis.set('wechat_token', data.access_token);
+                // await app.redis.set('wechat_token', data.access_token);
+                app.config.wechat.access_token = data.access_token;
                 console.log('update token successfully:', data)
             } else {
                 //没获取到

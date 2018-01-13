@@ -4,6 +4,13 @@ const sha1 = require('sha1');
 // const client = redis.createClient();
 
 module.exports = class WeChatService extends Service {
+    index() {
+        let ctx = this.ctx,
+            { request } = ctx;
+        console.log(request.query)
+        return '123'
+    }
+
     sign() {
         let ctx = this.ctx,
             { signature, timestamp, nonce, echostr } = ctx.query,
@@ -15,7 +22,7 @@ module.exports = class WeChatService extends Service {
         */
         let sha = sha1([token, timestamp, nonce].sort().join(''));
         if (sha === signature) {
-            console.log('sign wechat successfully')
+            console.log('sign wechat successfully, echostr is:', echostr)
             return echostr;
         } else {
             return 'err';

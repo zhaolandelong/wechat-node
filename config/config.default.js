@@ -10,19 +10,28 @@ module.exports = appInfo => {
   config.middleware = [];
 
   config.wechat = {
+    access_token: '',
     token: 'zldl',
     appid: 'wxc04ca1666d781d0a',
     secret: '83622e71883e541ab78dee42e4163c8e',
     encodingAESKey: '',
     prefix: 'https://api.weixin.qq.com/cgi-bin'
   };
-  config.redis = {
-    client: {
-      port: 6379,          // Redis port 
-      host: '127.0.0.1',   // Redis host 
-      password: 'auth',
-      db: 0,
+
+  config.security = {
+    csrf: {
+      enable: false,
+      ignoreJSON: true
     }
   };
+  
+  // config.redis = {
+  //   client: {
+  //     port: 6379,          // Redis port 
+  //     host: '127.0.0.1',   // Redis host 
+  //     password: 'auth',
+  //     db: 0,
+  //   }
+  // };
   return config;
 };
